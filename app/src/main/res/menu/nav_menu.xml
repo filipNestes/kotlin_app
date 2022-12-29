@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/firstFragment"
+        android:icon="@drawable/ic_baseline_airport_shuttle_24"
+        android:title="Itinerar" />
+    <item
+        android:id="@+id/secondFragment"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Mapa" />
+    <item
+        android:id="@+id/thirdFragment"
+        android:icon="@drawable/ic_baseline_calculate_24"
+        android:title="Kalkulacka" />
+</menu>
