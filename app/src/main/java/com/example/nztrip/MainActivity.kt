@@ -9,10 +9,14 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.WindowInsetsAnimationController
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.nztrip.databinding.ActivityMainBinding
+import com.example.nztrip.databinding.FragmentSecondBinding
 
 class MainActivity : AppCompatActivity() {
     var isAndroidReady = false
@@ -37,6 +41,13 @@ class MainActivity : AppCompatActivity() {
 
         navController= Navigation.findNavController(this, R.id.activity_main_nav_host_fragment)
         setupWithNavController(binding.bottomNavigationView, navController)
+
+     /*   val fragmentSecond = FragmentSecondBinding()
+
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.activity_main_nav_host_fragment, fragmentSecond).commit()
+*/
 
     }
 

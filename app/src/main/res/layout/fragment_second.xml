@@ -1,17 +1,232 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SecondFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Seconf fragment"
-        android:textStyle="bold"
-        android:textColor="@color/teal_200"
-        android:gravity="center"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.65"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn9"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="9"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn6"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn8"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:layout_marginEnd="32dp"
+            android:text="8"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn5"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn7"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn7"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="7"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn4"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="6"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn3"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn5"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="5"
+            android:textSize="24sp"
+
+            app:layout_constraintBottom_toTopOf="@+id/appBtn2"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn4"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="4"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn1"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="3"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appResult"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn2"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="2"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn0"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn1"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="1"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appEmpty"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appBtn0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="0"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appEmpty"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appToNzd"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="To NZD"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appToEur"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appToEur"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="To Eur"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appEmpty2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appReset"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="CE"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appToNzd"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn9"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appResult"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text="="
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toEndOf="@+id/appBtn0"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appEmpty"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text=""
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/appEmpty2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+
+            android:text=""
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintWidth_percent="0.25" />
+
+        <TextView
+            android:id="@+id/prikladTxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="4dp"
+            android:textAlignment="textEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/vysledokTxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:textAlignment="textEnd"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/appBtn7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/prikladTxt"
+            app:layout_constraintVertical_bias="0.259" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
