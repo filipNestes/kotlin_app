@@ -6,10 +6,10 @@
         android:title="Itinerar" />
     <item
         android:id="@+id/secondFragment"
-        android:icon="@drawable/ic_baseline_map_24"
-        android:title="Mapa" />
+        android:icon="@drawable/ic_baseline_calculate_24"
+        android:title="Kalkulačka" />
     <item
         android:id="@+id/thirdFragment"
-        android:icon="@drawable/ic_baseline_calculate_24"
-        android:title="Kalkulacka" />
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Mapa" />
 </menu>

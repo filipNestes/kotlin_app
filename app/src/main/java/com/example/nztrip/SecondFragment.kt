@@ -1,5 +1,6 @@
 package com.example.nztrip
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,13 +16,12 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     private var _binding : FragmentSecondBinding? = null
     private val binding get() = _binding!!
 
-    private var cisla: ArrayList<Float>? = null; //premenna uloz vsetky cisla ktore uzivatel zadal
-    private var znaky: ArrayList<String>? = null; 
+    private var myNumbers: ArrayList<Float>? = null; //premenna uloz vsetky cisla ktore uzivatel zadal
 
-    private var cislo = "";
-    private var priklad = "";
-    private var vysledok = 0f; // vykoná počítanie a uloží výsledok
-    private var resetovanie = true;
+    private var myChar = "";
+    private var currencyValue = "";
+    private var result = 0f; // vykoná počítanie a uloží výsledok
+    private var isReset = true;
     private var NZDCouse = 1.688614;
     private var EURCouse = 0.592716;
 
@@ -38,111 +38,93 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        cisla = ArrayList()
-        znaky = ArrayList()
+        myNumbers = ArrayList()
 
         binding.appBtn0.setOnClickListener {
-            zadajCislo("0")
+            setChar("0")
         }
         binding.appBtn1.setOnClickListener {
-            zadajCislo("1")
+            setChar("1")
         }
         binding.appBtn2.setOnClickListener {
-            zadajCislo("2")
+            setChar("2")
         }
         binding.appBtn3.setOnClickListener {
-            zadajCislo("3")
+            setChar("3")
         }
         binding.appBtn4.setOnClickListener {
-            zadajCislo("4")
+            setChar("4")
         }
         binding.appBtn5.setOnClickListener {
-            zadajCislo("5")
+            setChar("5")
         }
         binding.appBtn6.setOnClickListener {
-            zadajCislo("6")
+            setChar("6")
         }
         binding.appBtn7.setOnClickListener {
-            zadajCislo("7")
+            setChar("7")
         }
         binding.appBtn8.setOnClickListener {
-            zadajCislo("8")
+            setChar("8")
         }
         binding.appBtn9.setOnClickListener {
-            zadajCislo("9")
+            setChar("9")
+        }
+        binding.appDecimalPoint.setOnClickListener {
+            setChar(".")
+        }
+
+        binding.appBack.setOnClickListener {
+            removeLastCharacter()
         }
 
         binding.appToEur.setOnClickListener {
 
-            if (resetovanie && cislo != "") {
-                val transferNzdToEur = priklad.toFloat() * EURCouse
+            if (isReset && myChar != "") {
+                val transferNzdToEur = currencyValue.toFloat() * EURCouse
                 val roundedEur = transferNzdToEur.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
-                binding.vysledokTxt.text = roundedEur.toString()
+                binding.currencyResult.text = roundedEur.toString() + '€'
+                binding.currencyResult.setTextColor(Color.parseColor("#ffffff"));
+                binding.currencyResult.setBackgroundColor(Color.parseColor("#012169"));
             }
         }
         binding.appToNzd.setOnClickListener {
 
-            if (resetovanie && cislo != "") {
-                val transferEurToNzd = priklad.toFloat() * NZDCouse
+            if (isReset && myChar != "") {
+                val transferEurToNzd = currencyValue.toFloat() * NZDCouse
                 val roundedNzd = transferEurToNzd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
-                binding.vysledokTxt.text = roundedNzd.toString()
-            }
-        }
-
-        binding.appResult.setOnClickListener {
-            if (resetovanie && cislo != "") {
-                cisla?.add(cislo.toFloat())
-                vypocitajPriklad()
+                binding.currencyResult.text = roundedNzd.toString() + '$'
+                binding.currencyResult.setTextColor(Color.parseColor("#ffffff"));
+                binding.currencyResult.setBackgroundColor(Color.parseColor("#012169"));
             }
         }
 
         binding.appReset.setOnClickListener {
-            resetovanie = true
-            cislo = ""
-            priklad = ""
-            vysledok = 0f
-            cisla = ArrayList()
-            znaky = ArrayList()
-            binding.prikladTxt.text = ""
-            binding.vysledokTxt.text = ""
+            isReset = true
+            myChar = ""
+            currencyValue = ""
+            result = 0f
+            myNumbers = ArrayList()
+            binding.currencyValue.text = ""
+            binding.currencyResult.text = ""
+            binding.currencyResult.setTextColor(Color.parseColor("#000000"));
+            binding.currencyResult.setBackgroundColor(Color.parseColor("#ffffff"));
         }
     }
 
-    private fun zadajCislo(num: String) {
-        if (resetovanie) {
-            cislo += num
-            priklad += num
-            binding.prikladTxt.text = priklad
+    private fun setChar(num: String) {
+        if (isReset) {
+            myChar += num
+            currencyValue += num
+            binding.currencyValue.text = currencyValue
         }
     }
 
-    private fun zadajZnak(str: String) {
-        if (resetovanie && cislo != "") {
-            cisla?.add(cislo.toFloat())
-            cislo = ""
-            znaky?.add(str)
-            priklad += str
-            binding.prikladTxt.text = priklad
+    private fun removeLastCharacter() {
+        if (isReset) {
+            currencyValue = currencyValue.dropLast(1)
+            binding.currencyValue.text = currencyValue
         }
-    }
-
-    private fun vypocitajPriklad () {
-        if (cisla!!.size != 0 && znaky!!.size != 0 && cisla!!.size > znaky!!.size) {
-            vysledok = cisla!![0]
-            var i = 0
-            while (i < znaky!!.size) {
-                if (znaky!![i] == "toEur") {
-                    vysledok += cisla!![i + 1]
-                    i++
-                }
-                else if (znaky!![i] == "toNzd") {
-                    vysledok -= cisla!![i + 1]
-                    i++
-                }
-            }
-        }
-        binding.vysledokTxt.text = vysledok.toString()
-        resetovanie = false
     }
 
     // uvolnenie pamate ak daný fragment zavriem
