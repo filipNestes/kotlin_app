@@ -42,13 +42,6 @@ class MainActivity : AppCompatActivity() {
         navController= Navigation.findNavController(this, R.id.activity_main_nav_host_fragment)
         setupWithNavController(binding.bottomNavigationView, navController)
 
-     /*   val fragmentSecond = FragmentSecondBinding()
-
-        val fragmentManager: FragmentManager = supportFragmentManager
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.activity_main_nav_host_fragment, fragmentSecond).commit()
-*/
-
     }
 
     private fun dismissSplashScreen() {

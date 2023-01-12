@@ -2,12 +2,13 @@ package com.example.nztrip
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.nztrip.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
 import com.example.nztrip.databinding.FragmentSecondBinding
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.math.RoundingMode
 
 
@@ -25,12 +26,16 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     private var NZDCouse = 1.688614;
     private var EURCouse = 0.592716;
 
+  //  var baseUrl = "https://api.currencyapi.com/v3/latest?apikey=T6J307MaLlAPmrTea5QwDrqlUV0ooCkOQIDsn1sV&currencies=EUR%2CNZD&base_currency=NZD/"
+    var baseUrl = "http://www.domain.com/" //string end with "/"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        getCurrencyData()
 
         return binding.root
     }
@@ -125,6 +130,13 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
             currencyValue = currencyValue.dropLast(1)
             binding.currencyValue.text = currencyValue
         }
+    }
+
+    private fun getCurrencyData() {
+        val retrofitBuilder = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(baseUrl)
+            .build()
     }
 
     // uvolnenie pamate ak daný fragment zavriem
