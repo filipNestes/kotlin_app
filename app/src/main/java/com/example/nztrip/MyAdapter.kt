@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import org.w3c.dom.Text
 
 class MyAdapter(private val context : Activity, private  val arrayList: ArrayList<Detail>) :
     ArrayAdapter<Detail>(context, R.layout.list_item,arrayList) {
@@ -24,7 +25,6 @@ class MyAdapter(private val context : Activity, private  val arrayList: ArrayLis
         username.text = arrayList[position].name
         lastMsg.text = arrayList[position].lastMessage
         lastMsgTime.text = arrayList[position].lastMsgTime
-
 
         return view
     }

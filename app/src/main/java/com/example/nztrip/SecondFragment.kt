@@ -2,10 +2,12 @@ package com.example.nztrip
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import com.example.nztrip.databinding.FragmentSecondBinding
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,18 +18,16 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private var _binding : FragmentSecondBinding? = null
     private val binding get() = _binding!!
+    private val currenciesViewModel = CoursesViewModel()
 
     private var myNumbers: ArrayList<Float>? = null; //premenna uloz vsetky cisla ktore uzivatel zadal
 
-    private var myChar = "";
-    private var currencyValue = "";
-    private var result = 0f; // vykoná počítanie a uloží výsledok
-    private var isReset = true;
-    private var NZDCouse = 1.688614;
-    private var EURCouse = 0.592716;
-
-  //  var baseUrl = "https://api.currencyapi.com/v3/latest?apikey=T6J307MaLlAPmrTea5QwDrqlUV0ooCkOQIDsn1sV&currencies=EUR%2CNZD&base_currency=NZD/"
-    var baseUrl = "http://www.domain.com/" //string end with "/"
+    private var myChar = ""
+    private var currencyValue = ""
+    private var result = 0f // vykoná počítanie a uloží výsledok
+    private var isReset = true
+    private var NZDCouse = 1.688614
+    private var EURCouse = 0.592716
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,13 +35,44 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
-        getCurrencyData()
+        currenciesViewModel.getCurrencyData()
+
+        // precita naposledy ulozenu hodnotu, ak nema, fallbackne na konstanty
+        NZDCouse = getCurrency(this@SecondFragment.requireActivity(), "nzd").also { it.logE("nacitany kurz eur/nzd") } ?: 1.688614
+        EURCouse = getCurrency(this@SecondFragment.requireActivity(), "eur").also { it.logE("nacitany kurz nzd/eur") } ?: 0.592716
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        currenciesViewModel.currenciesLiveData.observe(this@SecondFragment.requireActivity()) { item ->
+
+            item?.data?.eur?.value?.let { eur -> setCurrency(this@SecondFragment.requireActivity(), "eur", eur) }
+            item?.data?.nzd?.value?.let { nzd -> setCurrency(this@SecondFragment.requireActivity(), "nzd", nzd) }
+
+            binding.appToEur.setOnClickListener {
+
+                if (isReset && myChar != "") {
+                    val transferNzdToEur = currencyValue.toFloat() * (item?.data?.eur?.value ?: EURCouse)
+                    val roundedEur = transferNzdToEur.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+                    binding.currencyResult.text = roundedEur.toString() + '€'
+                    binding.currencyResult.setTextColor(Color.parseColor("#ffffff"))
+                    binding.currencyResult.setBackgroundColor(Color.parseColor("#012169"))
+                }
+            }
+            binding.appToNzd.setOnClickListener {
+
+                if (isReset && myChar != "") {
+                    val transferEurToNzd = currencyValue.toFloat() / (item?.data?.eur?.value ?: NZDCouse)
+                    val roundedNzd = transferEurToNzd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
+                    binding.currencyResult.text = roundedNzd.toString() + '$'
+                    binding.currencyResult.setTextColor(Color.parseColor("#ffffff"))
+                    binding.currencyResult.setBackgroundColor(Color.parseColor("#012169"))
+                }
+            }
+        }
 
         myNumbers = ArrayList()
 
@@ -83,27 +114,6 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
             removeLastCharacter()
         }
 
-        binding.appToEur.setOnClickListener {
-
-            if (isReset && myChar != "") {
-                val transferNzdToEur = currencyValue.toFloat() * EURCouse
-                val roundedEur = transferNzdToEur.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
-                binding.currencyResult.text = roundedEur.toString() + '€'
-                binding.currencyResult.setTextColor(Color.parseColor("#ffffff"));
-                binding.currencyResult.setBackgroundColor(Color.parseColor("#012169"));
-            }
-        }
-        binding.appToNzd.setOnClickListener {
-
-            if (isReset && myChar != "") {
-                val transferEurToNzd = currencyValue.toFloat() * NZDCouse
-                val roundedNzd = transferEurToNzd.toBigDecimal().setScale(2, RoundingMode.UP).toDouble()
-                binding.currencyResult.text = roundedNzd.toString() + '$'
-                binding.currencyResult.setTextColor(Color.parseColor("#ffffff"));
-                binding.currencyResult.setBackgroundColor(Color.parseColor("#012169"));
-            }
-        }
-
         binding.appReset.setOnClickListener {
             isReset = true
             myChar = ""
@@ -130,13 +140,6 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
             currencyValue = currencyValue.dropLast(1)
             binding.currencyValue.text = currencyValue
         }
-    }
-
-    private fun getCurrencyData() {
-        val retrofitBuilder = Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseUrl)
-            .build()
     }
 
     // uvolnenie pamate ak daný fragment zavriem

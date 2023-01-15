@@ -3,7 +3,6 @@ package com.example.nztrip
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.nztrip.databinding.ActivityDetailBinding
-import com.example.nztrip.databinding.ActivityMainBinding
 
 class DetailActivity : AppCompatActivity() {
 
@@ -14,11 +13,14 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val name = intent.getStringExtra("name")
-        val phone = intent.getStringExtra("phone")
-        val country = intent.getStringExtra("country")
-        val imageId = intent.getIntExtra("imageId", R.drawable.nz_flag)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true) //back button
 
-        binding.textik.text = name
+        val name = intent.getStringExtra("name")
+        val imageId = intent.getIntExtra("imageId", R.drawable.auckland)
+        val placeDescription = intent.getStringExtra("detailContent")
+
+        binding.detailTitle.text = name
+        binding.placeImage.setImageResource(imageId)
+        binding.detailContent.text = placeDescription
     }
 }
