@@ -123,7 +123,7 @@ class SecondFragment : Fragment(R.layout.fragment_second) {
             binding.currencyValue.text = ""
             binding.currencyResult.text = ""
             binding.currencyResult.setTextColor(Color.parseColor("#000000"));
-            binding.currencyResult.setBackgroundColor(Color.parseColor("#ffffff"));
+            binding.currencyResult.setBackgroundColor(Color.parseColor("#9b9b9b"));
         }
     }
 
